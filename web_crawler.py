@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
+import time
 
 def get_headers():
     return {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
@@ -16,44 +17,75 @@ def crawl_recursive(url, original_domain_netloc, depth=3, visited=None):
         return visited
 
     print(f"[Depth: {depth}] Processing: {url}")
-    visited.add(url) # Add current URL to visited set, as it's now being processed.
+    # visited.add(url) will be moved to after successful fetch + parsing eligibility
 
     if depth == 0: # If max depth is reached, don't crawl its children from this page
         print(f"  Max depth reached at {url}, not crawling further from here.")
+        # Add to visited here if we consider reaching it "visiting", even if not crawled from
+        if url not in visited: visited.add(url)
         return visited
 
-    try:
-        response = requests.get(url, headers=get_headers(), timeout=10)
-        response.raise_for_status()
+    max_retries = 3
+    retry_delay_seconds = 5
+    response = None
+    attempts = 0
 
-        soup = BeautifulSoup(response.text, 'html.parser')
-        links = soup.find_all('a', href=True)
+    while attempts < max_retries:
+        try:
+            response = requests.get(url, headers=get_headers(), timeout=30)
+            response.raise_for_status()
+            print(f"  Successfully fetched {url} on attempt {attempts + 1}")
+            break
+        except requests.exceptions.Timeout:
+            print(f"  Attempt {attempts + 1} of {max_retries} timed out for {url}. Retrying in {retry_delay_seconds}s...")
+        except requests.exceptions.ConnectionError:
+            print(f"  Attempt {attempts + 1} of {max_retries} connection error for {url}. Retrying in {retry_delay_seconds}s...")
+        except requests.exceptions.HTTPError as e:
+            print(f"  HTTP error {e.response.status_code} for {url} on attempt {attempts + 1}. Won't retry.")
+            response = None
+            break
 
-        if links:
-            print(f"  Found {len(links)} <a> tags with href in {url}")
+        attempts += 1
+        if attempts < max_retries:
+            time.sleep(retry_delay_seconds)
         else:
-            print(f"  No <a> tags with href found in {url}")
-            return visited # No links to process further from this page
+            print(f"  All {max_retries} attempts failed for {url}.")
+            response = None
 
-        for tag in links:
-            full_url = urljoin(url, tag["href"])
-            parsed_full_url = urlparse(full_url)
+    if response:
+        try:
+            # Add URL to visited only on successful fetch and before parsing/recursion
+            visited.add(url)
 
-            print(f"  Raw link found: {tag['href']} -> Full URL: {full_url}")
+            soup = BeautifulSoup(response.text, 'html.parser')
+            links = soup.find_all('a', href=True)
 
-            if full_url in visited:
-                print(f"  Skipping (already visited/processing): {full_url}")
-            elif not parsed_full_url.netloc.endswith(original_domain_netloc):
-                print(f"  Skipping (different domain '{parsed_full_url.netloc}' vs original '{original_domain_netloc}'): {full_url}")
+            if links:
+                print(f"  Found {len(links)} <a> tags with href in {url}")
             else:
-                # Depth check for the *next* call is implicitly handled by that call's entry conditions
-                print(f"  Queuing for crawl: {full_url}")
-                crawl_recursive(full_url, original_domain_netloc, depth - 1, visited)
+                print(f"  No <a> tags with href found in {url}")
+                return visited # No links to process further from this page
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error during requests to {url}: {e}")
-    except Exception as e:
-        print(f"Error crawling or parsing {url}: {e}")
+            for tag in links:
+                full_url = urljoin(url, tag["href"])
+                parsed_full_url = urlparse(full_url)
+
+                print(f"  Raw link found: {tag['href']} -> Full URL: {full_url}")
+
+                if full_url in visited:
+                    print(f"  Skipping (already visited/processing): {full_url}")
+                elif not parsed_full_url.netloc.endswith(original_domain_netloc):
+                    print(f"  Skipping (different domain '{parsed_full_url.netloc}' vs original '{original_domain_netloc}'): {full_url}")
+                else:
+                    print(f"  Queuing for crawl: {full_url}")
+                    crawl_recursive(full_url, original_domain_netloc, depth - 1, visited)
+        except Exception as e:
+            print(f"  Error parsing or processing content from {url}: {e}")
+    else:
+        print(f"  Failed to fetch {url} after retries. Skipping further processing of this URL.")
+        # Ensure URL is not in visited if fetch ultimately failed, unless added at depth 0
+        # Current logic: if depth == 0, it's added. If fetch fails, it's not added here.
+        # This seems fine.
 
     return visited
 
