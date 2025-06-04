@@ -45,3 +45,7 @@ python web_crawler.py http://example.com found_links.txt --depth 2
 ```
 
 This command will start crawling from `http://example.com`, go up to 2 levels deep, and save all unique URLs found within `example.com` to `found_links.txt`.
+
+## Limitations
+
+-   **JavaScript-Rendered Content:** This crawler fetches and parses the raw HTML of web pages. It does not execute JavaScript. Therefore, if a website relies heavily on client-side JavaScript to generate or display links, this tool may not be able to discover all of them.
