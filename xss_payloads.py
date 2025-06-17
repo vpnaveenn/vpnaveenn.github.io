@@ -33,7 +33,7 @@ homoglyphs_map = {
     's': ['\u00A7', '\u015B', '\u015D', '\u0161', '\u023F', '\u0282', '\uFF53', '$', '5'],
     't': ['\u0165', '\u0163', '\u021B', '\u03C4', '\uFF54', '+'],
     'u': ['\u00B5', '\u016B', '\u016F', '\u0171', '\u03C5', '\u0446', '\uFF55'],
-    'v': ['\u0 spécialistes', '\uFF56'], # Note: The 'specialists' seems like a typo in the original, should be a char. Assuming it's a placeholder or error.
+    'v': ['\uFF56'], # Note: The 'specialists' seems like a typo in the original, should be a char. Assuming it's a placeholder or error.
     'w': ['\u0175', '\u0448', '\u0428', '\uFF57'],
     'x': ['\u0445', '\u0425', '\uFF58'],
     'y': ['\u00A5', '\u0177', '\u03BB', '\u0443', '\uFF59'],
@@ -103,14 +103,15 @@ if __name__ == '__main__':
             #    print(f"No payloads generated for '{letter_input}' (this message is from main).")
 
     # A note on the 'v' entry in homoglyphs_map:
-    # The entry for 'v': ['\u0 spécialistes', '\uFF56'] had a typo '\u0 spécialistes'.
+    # The entry for 'v': ['\uFF56'] had a typo (the removed 'specialists' string).
     # The current code handles encode_punycode returning None for this.
     # This comment can be removed if not needed for script users.
     # For example, to check it during execution:
-    # if 'v' in homoglyphs_map and '\u0 spécialistes' in homoglyphs_map['v']:
+    # if 'v' in homoglyphs_map: # Check if 'v' is still in the map.
     #     print("\\n--- Note on 'v' in homoglyphs_map ---")
-    #     problematic_glyph = '\u0 spécialistes'
-    #     encoded_problematic_glyph = encode_punycode(problematic_glyph)
+    #     # The problematic glyph was removed. You might want to test homoglyphs_map['v'] directly.
+    #     # For example, print(homoglyphs_map['v'])
+    #     pass # Original problematic glyph check is no longer relevant here.
     #     if encoded_problematic_glyph:
     #         print(f"Punycode for '{problematic_glyph}': {encoded_problematic_glyph}")
     #     else:
