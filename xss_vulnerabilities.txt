@@ -1,0 +1,9 @@
+Potential XSS Vulnerabilities Found in swaggerx.yaml:
+
+1. Path: info.description
+   Content: <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert(document.domain) src=vpndom>"></form>
+   Indicator: onerror=alert(document.domain) within an <img> tag.
+
+2. Path: paths./accounts/groupid/{id}.delete.parameters[0].description
+   Content: <form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('textarea') src=1>"></form>
+   Indicator: onerror=alert('textarea') within an <img> tag.
