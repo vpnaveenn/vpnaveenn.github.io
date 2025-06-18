@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Normalizations</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid white;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #333; /* Darker gray for header background */
+    }
+  </style>
+</head>
+<body>
+  <h1>Normalizations</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Hex</th>
+        <th>ASCII</th>
+        <th>HTML-Escaped</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>0x20</td><td> </td><td>&nbsp;</td></tr>
+      <tr><td>0x21</td><td>!</td><td>&excl;</td></tr>
+      <tr><td>0x22</td><td>"</td><td>&quot;</td></tr>
+      <tr><td>0x23</td><td>#</td><td>&num;</td></tr>
+      <tr><td>0x24</td><td>$</td><td>&dollar;</td></tr>
+      <tr><td>0x25</td><td>%</td><td>&percnt;</td></tr>
+      <tr><td>0x26</td><td>&</td><td>&amp;</td></tr>
+      <tr><td>0x27</td><td>'</td><td>&apos;</td></tr>
+      <tr><td>0x28</td><td>(</td><td>&lpar;</td></tr>
+      <tr><td>0x29</td><td>)</td><td>&rpar;</td></tr>
+      <tr><td>0x2A</td><td>*</td><td>&ast;</td></tr>
+      <tr><td>0x2B</td><td>+</td><td>&plus;</td></tr>
+      <tr><td>0x2C</td><td>,</td><td>&comma;</td></tr>
+      <tr><td>0x2D</td><td>-</td><td>&minus;</td></tr>
+      <tr><td>0x2E</td><td>.</td><td>&period;</td></tr>
+      <tr><td>0x2F</td><td>/</td><td>&sol;</td></tr>
+      <tr><td>0x30</td><td>0</td><td>0</td></tr>
+      <tr><td>0x31</td><td>1</td><td>1</td></tr>
+      <tr><td>0x32</td><td>2</td><td>2</td></tr>
+      <tr><td>0x33</td><td>3</td><td>3</td></tr>
+      <tr><td>0x34</td><td>4</td><td>4</td></tr>
+      <tr><td>0x35</td><td>5</td><td>5</td></tr>
+      <tr><td>0x36</td><td>6</td><td>6</td></tr>
+      <tr><td>0x37</td><td>7</td><td>7</td></tr>
+      <tr><td>0x38</td><td>8</td><td>8</td></tr>
+      <tr><td>0x39</td><td>9</td><td>9</td></tr>
+      <tr><td>0x3A</td><td>:</td><td>&colon;</td></tr>
+      <tr><td>0x3B</td><td>;</td><td>&semi;</td></tr>
+      <tr><td>0x3C</td><td>&lt;</td><td>&lt;</td></tr>
+      <tr><td>0x3D</td><td>=</td><td>&equals;</td></tr>
+      <tr><td>0x3E</td><td>&gt;</td><td>&gt;</td></tr>
+      <tr><td>0x3F</td><td>?</td><td>&quest;</td></tr>
+      <tr><td>0x40</td><td>@</td><td>&commat;</td></tr>
+      <tr><td>0x41</td><td>A</td><td>A</td></tr>
+      <tr><td>0x42</td><td>B</td><td>B</td></tr>
+      <tr><td>0x43</td><td>C</td><td>C</td></tr>
+      <tr><td>0x44</td><td>D</td><td>D</td></tr>
+      <tr><td>0x45</td><td>E</td><td>E</td></tr>
+      <tr><td>0x46</td><td>F</td><td>F</td></tr>
+      <tr><td>0x47</td><td>G</td><td>G</td></tr>
+      <tr><td>0x48</td><td>H</td><td>H</td></tr>
+      <tr><td>0x49</td><td>I</td><td>I</td></tr>
+      <tr><td>0x4A</td><td>J</td><td>J</td></tr>
+      <tr><td>0x4B</td><td>K</td><td>K</td></tr>
+      <tr><td>0x4C</td><td>L</td><td>L</td></tr>
+      <tr><td>0x4D</td><td>M</td><td>M</td></tr>
+      <tr><td>0x4E</td><td>N</td><td>N</td></tr>
+      <tr><td>0x4F</td><td>O</td><td>O</td></tr>
+      <tr><td>0x50</td><td>P</td><td>P</td></tr>
+      <tr><td>0x51</td><td>Q</td><td>Q</td></tr>
+      <tr><td>0x52</td><td>R</td><td>R</td></tr>
+      <tr><td>0x53</td><td>S</td><td>S</td></tr>
+      <tr><td>0x54</td><td>T</td><td>T</td></tr>
+      <tr><td>0x55</td><td>U</td><td>U</td></tr>
+      <tr><td>0x56</td><td>V</td><td>V</td></tr>
+      <tr><td>0x57</td><td>W</td><td>W</td></tr>
+      <tr><td>0x58</td><td>X</td><td>X</td></tr>
+      <tr><td>0x59</td><td>Y</td><td>Y</td></tr>
+      <tr><td>0x5A</td><td>Z</td><td>Z</td></tr>
+      <tr><td>0x5B</td><td>[</td><td>&lbrack;</td></tr>
+      <tr><td>0x5C</td><td>\</td><td>&bsol;</td></tr>
+      <tr><td>0x5D</td><td>]</td><td>&rbrack;</td></tr>
+      <tr><td>0x5E</td><td>^</td><td>&circ;</td></tr>
+      <tr><td>0x5F</td><td>_</td><td>&lowbar;</td></tr>
+      <tr><td>0x60</td><td>`</td><td>&grave;</td></tr>
+      <tr><td>0x61</td><td>a</td><td>a</td></tr>
+      <tr><td>0x62</td><td>b</td><td>b</td></tr>
+      <tr><td>0x63</td><td>c</td><td>c</td></tr>
+      <tr><td>0x64</td><td>d</td><td>d</td></tr>
+      <tr><td>0x65</td><td>e</td><td>e</td></tr>
+      <tr><td>0x66</td><td>f</td><td>f</td></tr>
+      <tr><td>0x67</td><td>g</td><td>g</td></tr>
+      <tr><td>0x68</td><td>h</td><td>h</td></tr>
+      <tr><td>0x69</td><td>i</td><td>i</td></tr>
+      <tr><td>0x6A</td><td>j</td><td>j</td></tr>
+      <tr><td>0x6B</td><td>k</td><td>k</td></tr>
+      <tr><td>0x6C</td><td>l</td><td>l</td></tr>
+      <tr><td>0x6D</td><td>m</td><td>m</td></tr>
+      <tr><td>0x6E</td><td>n</td><td>n</td></tr>
+      <tr><td>0x6F</td><td>o</td><td>o</td></tr>
+      <tr><td>0x70</td><td>p</td><td>p</td></tr>
+      <tr><td>0x71</td><td>q</td><td>q</td></tr>
+      <tr><td>0x72</td><td>r</td><td>r</td></tr>
+      <tr><td>0x73</td><td>s</td><td>s</td></tr>
+      <tr><td>0x74</td><td>t</td><td>t</td></tr>
+      <tr><td>0x75</td><td>u</td><td>u</td></tr>
+      <tr><td>0x76</td><td>v</td><td>v</td></tr>
+      <tr><td>0x77</td><td>w</td><td>w</td></tr>
+      <tr><td>0x78</td><td>x</td><td>x</td></tr>
+      <tr><td>0x79</td><td>y</td><td>y</td></tr>
+      <tr><td>0x7A</td><td>z</td><td>z</td></tr>
+      <tr><td>0x7B</td><td>{</td><td>&lcub;</td></tr>
+      <tr><td>0x7C</td><td>|</td><td>&verbar;</td></tr>
+      <tr><td>0x7D</td><td>}</td><td>&rcub;</td></tr>
+      <tr><td>0x7E</td><td>~</td><td>&sim;</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>
